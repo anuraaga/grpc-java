@@ -7,6 +7,10 @@ buildscript {
     }
 }
 
+plugins {
+    id 'com.github.johnrengelman.shadow' version '2.0.1'
+}
+
 apply plugin: 'application'
 
 description = "grpc Benchmarks"
@@ -19,6 +23,12 @@ jmh {
     // Workaround
     // https://github.com/melix/jmh-gradle-plugin/issues/97#issuecomment-316664026
     includeTests = true
+
+    include = [ '.*EmptyNonBlockingBenchmark.*' ]
+    forceGC = true
+    fork = 1
+    warmupIterations = 15
+    iterations = 10
 }
 
 dependencies {
